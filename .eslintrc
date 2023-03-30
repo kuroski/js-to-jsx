@@ -1,0 +1,7 @@
+{
+  "extends": ["eslint-config-unjs"],
+  "rules": {
+    "import/namespace": "off",
+    "import/named": "off"
+  }
+}

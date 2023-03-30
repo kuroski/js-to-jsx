@@ -1,0 +1,57 @@
+{
+  "name": "js-to-jsx",
+  "version": "1.0.0",
+  "description": "",
+  "sideEffects": false,
+  "packageManager": "pnpm@7.30.5",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "js-to-jsx": "bin/js-to-jsx"
+  },
+  "scripts": {
+    "start": "esno scripts/start.ts",
+    "build": "unbuild",
+    "dev": "vitest dev",
+    "lint": "eslint --cache --ext .ts,.js,.mjs,.cjs . && prettier -c src test",
+    "lint:fix": "eslint --cache --ext .ts,.js,.mjs,.cjs . --fix && prettier -c src test -w",
+    "prepack": "pnpm run build",
+    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
+    "test": "pnpm lint && vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node-lts": "18.12.1",
+    "@tsconfig/strictest": "2.0.0",
+    "@types/lodash": "^4.14.192",
+    "@types/node": "^18.15.11",
+    "@vitest/coverage-c8": "0.29.8",
+    "changelogen": "0.5.2",
+    "eslint": "8.37.0",
+    "eslint-config-unjs": "0.1.0",
+    "esno": "0.16.3",
+    "prettier": "2.8.7",
+    "typescript": "5.0.2",
+    "unbuild": "1.1.2",
+    "vitest": "0.29.8"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "commander": "^10.0.0",
+    "fp-ts": "^2.13.1",
+    "lodash": "^4.17.21"
+  }
+}
