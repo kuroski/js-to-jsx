@@ -40,10 +40,11 @@ program
     "<file_path>",
     "path to a folder where you want to detect JSX files with JS extension for conversion"
   )
+  .option("--dry", "enable dry run")
   .allowExcessArguments(false)
   .allowUnknownOption(false)
   .description("running js to jsx command")
-  .action(async (path) => await transform(path)());
+  .action(async (path, options) => await transform(path, options)());
 
 export const cli = async (args: string[]) => {
   try {
