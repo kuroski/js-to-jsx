@@ -3,6 +3,9 @@
   "rules": {
     "import/namespace": "off",
     "import/named": "off",
-    "unicorn/no-array-callback-reference": "off"
+    "unicorn/no-array-callback-reference": "off",
+    "curly": "off",
+    "unicorn/no-array-method-this-argument": "off",
+    "unicorn/no-array-for-each": "off"
   }
 }

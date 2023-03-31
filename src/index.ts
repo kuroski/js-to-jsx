@@ -3,7 +3,8 @@ import { program } from "commander";
 import * as E from "fp-ts/Either";
 import { version } from "../package.json";
 import { handleError } from "./handlers/error";
-import { transform } from "./commands/transform";
+import transform from "./commands/transform";
+import removeRedundantImportExtensions from "./commands/removeRedundantImportExtensions";
 
 const accent = chalk.greenBright;
 
@@ -45,6 +46,21 @@ program
   .allowUnknownOption(false)
   .description("running js to jsx command")
   .action(async (path, options) => await transform(path, options)());
+
+program
+  .command("remove-redundant-import-extensions")
+  .argument(
+    "<file_path>",
+    "path to a folder where you want to detect JSX files with JS extension for conversion"
+  )
+  .option("--dry", "enable dry run")
+  .allowExcessArguments(false)
+  .allowUnknownOption(false)
+  .description("remove any .js|.jsx|.ts|.tsx extension from file imports")
+  .action(
+    async (path, options) =>
+      await removeRedundantImportExtensions(path, options)()
+  );
 
 export const cli = async (args: string[]) => {
   try {
