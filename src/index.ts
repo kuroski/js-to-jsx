@@ -43,7 +43,7 @@ program
   .allowExcessArguments(false)
   .allowUnknownOption(false)
   .description("running js to jsx command")
-  .action(async (path, options) => await transform(path, options)());
+  .action(async (path) => await transform(path)());
 
 export const cli = async (args: string[]) => {
   try {

@@ -3,7 +3,6 @@ lockfileVersion: 5.4
 specifiers:
   '@tsconfig/node-lts': 18.12.1
   '@tsconfig/strictest': 2.0.0
-  '@types/lodash': ^4.14.192
   '@types/node': ^18.15.11
   '@vitest/coverage-c8': 0.29.8
   chalk: ^5.2.0
@@ -13,8 +12,8 @@ specifiers:
   eslint-config-unjs: 0.1.0
   esno: 0.16.3
   fp-ts: ^2.13.1
-  lodash: ^4.17.21
   prettier: 2.8.7
+  readdirp: ^3.6.0
   typescript: 5.0.2
   unbuild: 1.1.2
   vitest: 0.29.8
@@ -23,12 +22,10 @@ dependencies:
   chalk: 5.2.0
   commander: 10.0.0
   fp-ts: 2.13.1
-  lodash: 4.17.21
 
 devDependencies:
   '@tsconfig/node-lts': 18.12.1
   '@tsconfig/strictest': 2.0.0
-  '@types/lodash': 4.14.192
   '@types/node': 18.15.11
   '@vitest/coverage-c8': 0.29.8_vitest@0.29.8
   changelogen: 0.5.2
@@ -36,6 +33,7 @@ devDependencies:
   eslint-config-unjs: 0.1.0_bcnce6t2n5ss3lv2getliffzhq
   esno: 0.16.3
   prettier: 2.8.7
+  readdirp: 3.6.0
   typescript: 5.0.2
   unbuild: 1.1.2
   vitest: 0.29.8
@@ -729,10 +727,6 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-    dev: true
-
-  /@types/lodash/4.14.192:
-    resolution: {integrity: sha512-km+Vyn3BYm5ytMO13k9KTp27O75rbQ0NFw+U//g+PX7VZyjCioXaRFisqSIJRECljcTv73G3i6BpglNGHgUQ5A==}
     dev: true
 
   /@types/node/18.15.11:
@@ -2706,6 +2700,7 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
 
   /loupe/2.3.6:
     resolution: {integrity: sha512-RaPMZKiMy8/JruncMU5Bt6na1eftNoo++R4Y+N2FrxkDVTrGvcyzFTsaGif4QTeKESheMGegbhw6iUAq+5A8zA==}
@@ -3190,6 +3185,13 @@ packages:
       normalize-package-data: 2.5.0
       parse-json: 5.2.0
       type-fest: 0.6.0
+    dev: true
+
+  /readdirp/3.6.0:
+    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
+    engines: {node: '>=8.10.0'}
+    dependencies:
+      picomatch: 2.3.1
     dev: true
 
   /regexp-tree/0.1.24:

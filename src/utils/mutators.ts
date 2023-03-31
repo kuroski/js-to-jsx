@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import { error } from "../types/errors";
 import { isErrnoException } from "./../utils/checks";
 
 /**
@@ -15,4 +17,16 @@ export const parseErrorMessage = (e: unknown) => {
     msg = JSON.stringify(e);
   }
   return msg.replace(/\n+$|\s{2,}/g, "").trim();
+};
+
+export const parsePath = (path: string): fs.PathLike => {
+  if (!fs.existsSync(path)) {
+    throw error({
+      code: "NO_FILE_PATH",
+      path,
+      data: "Please provide a valid folder path.",
+    });
+  }
+
+  return path;
 };

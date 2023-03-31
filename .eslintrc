@@ -2,6 +2,7 @@
   "extends": ["eslint-config-unjs"],
   "rules": {
     "import/namespace": "off",
-    "import/named": "off"
+    "import/named": "off",
+    "unicorn/no-array-callback-reference": "off"
   }
 }
