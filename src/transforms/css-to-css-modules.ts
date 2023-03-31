@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { API, FileInfo } from "jscodeshift";
 import type { TRunnerOptions } from "../types";
 
@@ -10,36 +12,6 @@ function removeRedundantImportExtensions(
   const root = j(file.source);
 
   let hasModifications = false;
-  root
-    .find(j.ExportNamedDeclaration, {
-      type: "ExportNamedDeclaration",
-    })
-    .filter((path) => {
-      if (!path.value || !path.value.source?.type || path.value.source?.value)
-        return false;
-
-      return (
-        ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].includes(String(path.value.source.value))
-      );
-    })
-    .forEach((path) => {
-      const node = path.node;
-
-      if (!node.source || !node.source.value) return;
-
-      if (options.dry) {
-        api.stats(file.path);
-      } else {
-        const previousFilePath = node.source.value;
-        const nextFilePath = String(previousFilePath).replace(
-          /\.(tsx?|jsx?)/g,
-          ""
-        );
-        node.source.value = nextFilePath;
-        hasModifications = true;
-      }
-    });
 
   root
     .find(j.ImportDeclaration, {
@@ -47,15 +19,18 @@ function removeRedundantImportExtensions(
     })
     .filter((path) => {
       if (!path.value || !path.value.source?.type || path.value.source?.value)
-        return true;
+        return false;
+
+      console.log(path);
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].includes(String(path.value.source.value))
+        [".css"].includes(String(path.value.source.value)) &&
+        ![".module.css"].includes(String(path.value.source.value))
       );
     })
-    .forEach((path) => {
-      const node = path.node;
+    .forEach((astPath) => {
+      const node = astPath.node;
 
       if (!node.source || !node.source.value) return;
 
@@ -64,11 +39,17 @@ function removeRedundantImportExtensions(
       } else {
         const previousFilePath = node.source.value;
         const nextFilePath = String(previousFilePath).replace(
-          /\.(tsx?|jsx?)/g,
-          ""
+          /\.(css)/g,
+          ".module.css"
         );
         node.source.value = nextFilePath;
         hasModifications = true;
+
+        // Side effect for renaming the actual CSS module file.
+        fs.renameSync(
+          path.join(path.dirname(file.path), String(previousFilePath)),
+          path.join(path.dirname(file.path), nextFilePath)
+        );
       }
     });
 

@@ -5,6 +5,7 @@ import { version } from "../package.json";
 import { handleError } from "./handlers/error";
 import transform from "./commands/transform";
 import removeRedundantImportExtensions from "./commands/removeRedundantImportExtensions";
+import cssToCssModules from "./commands/cssToCssModules";
 
 const accent = chalk.greenBright;
 
@@ -61,6 +62,18 @@ program
     async (path, options) =>
       await removeRedundantImportExtensions(path, options)()
   );
+
+program
+  .command("css-to-css-modules")
+  .argument(
+    "<file_path>",
+    "path to a folder where you want to detect JSX files with JS extension for conversion"
+  )
+  .option("--dry", "enable dry run")
+  .allowExcessArguments(false)
+  .allowUnknownOption(false)
+  .description("converts all .css imports to module.css")
+  .action(async (path, options) => await cssToCssModules(path, options)());
 
 export const cli = async (args: string[]) => {
   try {
