@@ -15,17 +15,18 @@ function removeRedundantImportExtensions(
       type: "ExportNamedDeclaration",
     })
     .filter((path) => {
-      if (!path.value || !path.value.source?.type || path.value.source?.value)
-        return false;
+      if (!path.value?.source?.type || !path.value?.source?.value) return false;
+      const value = String(path.value.source.value);
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].includes(String(path.value.source.value))
+        [".js", ".jsx", ".ts", ".tsx"].some((extension) =>
+          value.includes(extension)
+        )
       );
     })
     .forEach((path) => {
       const node = path.node;
-
       if (!node.source || !node.source.value) return;
 
       if (options.dry) {
@@ -46,12 +47,14 @@ function removeRedundantImportExtensions(
       type: "ImportDeclaration",
     })
     .filter((path) => {
-      if (!path.value || !path.value.source?.type || path.value.source?.value)
-        return true;
+      if (!path.value?.source?.type || !path.value?.source?.value) return false;
+      const value = String(path.value.source.value);
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].includes(String(path.value.source.value))
+        [".js", ".jsx", ".ts", ".tsx"].some((extension) =>
+          value.includes(extension)
+        )
       );
     })
     .forEach((path) => {
