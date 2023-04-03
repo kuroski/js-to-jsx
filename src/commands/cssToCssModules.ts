@@ -6,7 +6,7 @@ import { handleError } from "../handlers/error";
 import { isCLIError } from "../utils/checks";
 import { parsePath } from "../utils/mutators";
 
-const removeRedundantImportExtensions =
+const cssToCssModules =
   (maybeGlobPattern: string, options: { dry?: boolean }) => async () => {
     try {
       const destPath = parsePath(maybeGlobPattern);
@@ -37,4 +37,4 @@ const removeRedundantImportExtensions =
     }
   };
 
-export default removeRedundantImportExtensions;
+export default cssToCssModules;

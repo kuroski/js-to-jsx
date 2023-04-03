@@ -39,7 +39,7 @@ program.exitOverride().configureOutput({
 program
   .command("transform")
   .argument(
-    "<file_path>",
+    "<folder_path>",
     "path to a folder where you want to detect JSX files with JS extension for conversion"
   )
   .option("--dry", "enable dry run")
@@ -51,7 +51,7 @@ program
 program
   .command("remove-redundant-import-extensions")
   .argument(
-    "<file_path>",
+    "<folder_path>",
     "path to a folder where you want to detect JSX files with JS extension for conversion"
   )
   .option("--dry", "enable dry run")
@@ -66,7 +66,7 @@ program
 program
   .command("css-to-css-modules")
   .argument(
-    "<file_path>",
+    "<folder_path>",
     "path to a folder where you want to detect JSX files with JS extension for conversion"
   )
   .option("--dry", "enable dry run")

@@ -1,5 +1,6 @@
 import type { API, FileInfo } from "jscodeshift";
 import type { TRunnerOptions } from "../types";
+import { hasJsTsExtension } from "../utils/checks";
 
 function removeRedundantImportExtensions(
   file: FileInfo,
@@ -20,9 +21,7 @@ function removeRedundantImportExtensions(
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].some((extension) =>
-          value.includes(extension)
-        )
+        hasJsTsExtension(value)
       );
     })
     .forEach((path) => {
@@ -52,9 +51,7 @@ function removeRedundantImportExtensions(
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".js", ".jsx", ".ts", ".tsx"].some((extension) =>
-          value.includes(extension)
-        )
+        hasJsTsExtension(value)
       );
     })
     .forEach((path) => {

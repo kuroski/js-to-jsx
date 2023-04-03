@@ -56,3 +56,6 @@ export const isSafeCommanderError = (
 ): error is CommanderError => {
   return error instanceof CommanderError && error.exitCode === 0;
 };
+
+export const hasJsTsExtension = (str: string) =>
+  Boolean(/\.(js|jsx|ts|tsx)$/gm.test(str));
