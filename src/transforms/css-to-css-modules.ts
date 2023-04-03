@@ -18,15 +18,19 @@ function removeRedundantImportExtensions(
       type: "ImportDeclaration",
     })
     .filter((path) => {
-      if (!path.value || !path.value.source?.type || path.value.source?.value)
+      if (
+        !path.value?.source?.type ||
+        !path.value?.source?.value ||
+        !path.value.specifiers
+      )
         return false;
-
-      console.log(path);
+      const value = String(path.value.source.value);
 
       return (
         ["Literal", "StringLiteral"].includes(path.value.source.type) &&
-        [".css"].includes(String(path.value.source.value)) &&
-        ![".module.css"].includes(String(path.value.source.value))
+        path.value.specifiers.length > 0 &&
+        value.includes(".css") &&
+        !value.includes(".module.css")
       );
     })
     .forEach((astPath) => {
@@ -46,10 +50,13 @@ function removeRedundantImportExtensions(
         hasModifications = true;
 
         // Side effect for renaming the actual CSS module file.
-        fs.renameSync(
-          path.join(path.dirname(file.path), String(previousFilePath)),
-          path.join(path.dirname(file.path), nextFilePath)
-        );
+        const newPath = path.join(path.dirname(file.path), nextFilePath);
+        if (!fs.existsSync(newPath)) {
+          fs.renameSync(
+            path.join(path.dirname(file.path), String(previousFilePath)),
+            newPath
+          );
+        }
       }
     });
 
